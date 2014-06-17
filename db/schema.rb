@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617152006) do
+ActiveRecord::Schema.define(version: 20140617213330) do
 
   create_table "ad_types", force: true do |t|
     t.string   "name"
@@ -26,7 +26,10 @@ ActiveRecord::Schema.define(version: 20140617152006) do
     t.integer  "ad_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -41,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140617152006) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

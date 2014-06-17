@@ -1,6 +1,12 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  before_save :default_values
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  ROLES = %w[guest user admin]
+  has_many :ads
+
+  def default_values
+    self.role ||= "user"
+  end
 end

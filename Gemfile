@@ -4,6 +4,7 @@ gem 'web-app-theme'
 gem 'devise'
 gem 'enumerize'
 gem 'will_paginate'
+gem 'cancan'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
