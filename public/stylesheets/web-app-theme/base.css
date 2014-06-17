@@ -186,6 +186,15 @@ body {
 
 .pagination em {
   font-weight: bold;  
+  font-weight: bold;
+  border-radius: 2px;
+  margin-right: 5px;
+  padding: 6px;
+  min-width: 15px;
+  text-align: center;
+  background: url('images/button-background.png') repeat scroll 0% 0% #DDD;
+  color: #111;
+  border: 1px solid #C3C4BA;
 }
 
 .pagination a {
