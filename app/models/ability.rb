@@ -8,17 +8,24 @@ class Ability
   end
 
   def guest
-      can :read, :all #for guest without roles
+      can :read, Ad #for guest without roles
   end
 
   def user
     guest
-    can :manage, Ad
+    can :create, Ad
+    can :update, Ad do |ad|
+      ad.draft? && ad.user_id == @user.id
+    end
+
+    can :destroy, Ad do |ad|
+      ad.user_id == @user.id
+    end
   end
 
   def admin
     guest
-    can :manage, :all
-    cannot :create, :update, Ad
+    can :manage, :AdminSection
+    can :destroy, Ad
   end
 end
