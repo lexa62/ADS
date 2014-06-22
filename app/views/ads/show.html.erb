@@ -31,6 +31,11 @@
           <%= @ad.status %>
         </p>
 
+        <p>
+          <b><%= t("activerecord.attributes.ad.type", :default => t("activerecord.labels.type", :default => "Type")) %>:</b>
+          <%= @ad.ad_type.name %>
+        </p>
+
       <div class="wat-cf">
         <% if can? :edit, @ad %>
           <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_ad_path(@ad), :class => "button" %>

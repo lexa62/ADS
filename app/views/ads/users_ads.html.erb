@@ -17,6 +17,7 @@
             <%= content_tag :th, sort_link(@q, :title) %>
             <%= content_tag :th, sort_link(@q, :price) %>
             <%= content_tag :th, sort_link(@q, :ad_type_id) %>
+            <%= content_tag :th, sort_link(@q, :status) %>
             <%= content_tag :th, sort_link(@q, :created_at) %>
             <th class="last">&nbsp;</th>
           </tr>
@@ -26,6 +27,7 @@
             <td><%= link_to ad.title, ad_path(ad) %></td>
             <td><%= number_to_currency(ad.price, :unit => "$", :precision => 0) %></td>
             <td><%= ad.ad_type.name %></td>
+            <td><%= ad.status %></td>
             <td><%= time_ago_in_words(ad.created_at)+ " ago" %></td>
             <td class="last">
               <%= link_to "#{t("web-app-theme.show", :default => "Show")}", ad_path(ad) %>
@@ -35,6 +37,15 @@
               <% if can? :destroy, ad %>
                 | <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", ad_path(ad), :method => :delete,
                   :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+              <% end %>
+              <% if ad.draft? %>
+                | <%= link_to "#{t("web-app-theme.edit", :default => "Moderating")}", ads_moderating_path(ad) %>
+              <% end %>
+              <% if (can? :make_draft, ad) && ad.archive? %>
+                | <%= link_to "#{t("web-app-theme.edit", :default => "Move in drafts")}", ads_make_draft_path(ad) %>
+              <% end %>
+              <% if (can? :edit_rejected_ad, ad) && ad.rejected? %>
+                | <%= link_to "#{t("web-app-theme.edit", :default => "Move in drafts")}", ads_edit_rejected_path(ad) %>
               <% end %>
             </td>
           </tr>          

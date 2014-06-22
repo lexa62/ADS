@@ -5,7 +5,6 @@ class Ad < ActiveRecord::Base
 
 	state_machine :status, :initial => :draft do
     
-
     event :moderating do
    	  transition :draft => :new
     end

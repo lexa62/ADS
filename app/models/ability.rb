@@ -14,6 +14,10 @@ class Ability
   def user
     guest
     can :create, Ad
+    can :users_ads, Ad
+    can :moderating, Ad
+    can :make_draft, Ad
+    can :edit_rejected_ad, Ad
     can :update, Ad do |ad|
       ad.draft? && ad.user_id == @user.id
     end
@@ -26,6 +30,8 @@ class Ability
   def admin
     guest
     can :manage, :AdminSection
-    can :destroy, Ad
+    can :destroy, Ad do |ad|
+      !ad.draft?
+    end
   end
 end

@@ -49,12 +49,47 @@ class AdsController < ApplicationController
     end
   end
 
+  def users_ads
+    @q = current_user.ads.search(params[:q])
+    @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
+  end
+
+  def moderating
+    @ad = Ad.find(params[:id])
+      if @ad.user_id == current_user.id && @ad.draft?
+        @ad.moderating
+        redirect_to :my_ads, notice: 'ad was successfully published.'
+      else
+        redirect_to :my_ads, :flash => {:error => 'ad can not published.'}
+      end
+  end
+
+  def make_draft
+    @ad = Ad.find(params[:id])
+      if @ad.user_id == current_user.id && @ad.archive?
+        @ad.make_draft
+        redirect_to :my_ads, notice: 'ad was successfully move in drafts.'
+      else
+        redirect_to :my_ads, :flash => {:error => 'ad can not moved in drafts.'}
+      end
+  end
+
+  def edit_rejected_ad
+    @ad = Ad.find(params[:id])
+      if @ad.user_id == current_user.id && @ad.rejected?
+        @ad.edit_rejected_ad
+        redirect_to :my_ads, notice: 'ad was successfully moved in drafts.'
+      else
+        redirect_to :my_ads, :flash => {:error => 'ad can not moved in drafts.'}
+      end
+  end
+
   private
     def set_ad
       @ad = Ad.find(params[:id])
     end
 
     def ad_params
-      params.require(:ad).permit(:title, :text, :price)
+      params.require(:ad).permit(:title, :text, :price, :ad_type_id)
     end
 end

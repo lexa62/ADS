@@ -1,25 +1,12 @@
-<div class="block notice">
-  <h3>Search</h3><br/>
-  <div class="content">
-    <%= search_form_for @q do |f| %>
-    
-      <div class="group">
-        <%= f.label :title_cont %>
-        <%= f.search_field :title_cont %>
-      </div>
-
-      <div class="group">
-        <%= f.label :text_cont %>
-        <%= f.search_field :text_cont %>
-        <%= f.submit %>
-      </div><br/>
-    <% end %>
-  </div>
-</div>
 <div class="block">
   <h3>Links</h3>
   <ul class="navigation">
-    <li><a href="#">Link 1</a></li>
-    <li><a href="#">Link 2</a></li>
+    <li><%= link_to 'Home', root_path %></li>
+    <% if can? :users_ads, Ad %>
+      <li><%= link_to 'My ads', my_ads_path %></li>
+    <% end %>
+    <% if can? :manage, :AdminSection %>
+      <li><%= link_to 'Admin section', admin_path %></li>
+    <% end %>
   </ul>
 </div>

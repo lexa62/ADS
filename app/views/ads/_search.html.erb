@@ -1,0 +1,18 @@
+<div class="block notice">
+  <h3>Search</h3><br/>
+  <div class="content">
+    <%= search_form_for @q, html: { :class => "form" } do |f| %>
+    
+      <div class="group">
+        <%= f.label :title_cont, :class => "label" %>
+        <%= f.search_field :title_cont, :class => "text_field" %>
+      </div>
+
+      <div class="group">
+        <%= f.label :text_cont, :class => "label" %>
+        <%= f.search_field :text_cont, :class => "text_field" %>
+        <%= f.submit %>
+      </div><br/>
+    <% end %>
+  </div>
+</div>
