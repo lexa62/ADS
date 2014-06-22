@@ -1,7 +1,19 @@
 <div class="block notice">
-  <h3>Simple Block</h3>
+  <h3>Search</h3><br/>
   <div class="content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <%= search_form_for @q do |f| %>
+    
+      <div class="group">
+        <%= f.label :title_cont %>
+        <%= f.search_field :title_cont %>
+      </div>
+
+      <div class="group">
+        <%= f.label :text_cont %>
+        <%= f.search_field :text_cont %>
+        <%= f.submit %>
+      </div><br/>
+    <% end %>
   </div>
 </div>
 <div class="block">

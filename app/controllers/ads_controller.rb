@@ -3,7 +3,8 @@ class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ads = Ad.paginate(:page => params[:page], :per_page => 10)
+    @q = Ad.search(params[:q])
+    @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
   end
 
   def new
@@ -54,6 +55,6 @@ class AdsController < ApplicationController
     end
 
     def ad_params
-      params.require(:ad).permit(:title, :text)
+      params.require(:ad).permit(:title, :text, :price)
     end
 end

@@ -6,6 +6,7 @@ gem 'enumerize'
 gem 'will_paginate'
 gem 'cancan'
 gem 'state_machine'
+gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
