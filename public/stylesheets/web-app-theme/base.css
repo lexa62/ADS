@@ -417,3 +417,28 @@ button.button:active, a.button:active {
 .link_button{
   cursor: pointer;
 }
+
+/*flash*/
+.alert-error {
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-alert {
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-success {
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+
+.alert-notice {
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }

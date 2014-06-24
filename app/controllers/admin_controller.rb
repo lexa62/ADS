@@ -1,13 +1,17 @@
 class AdminController < ApplicationController
 	authorize_resource :class => :AdminSection
+
   def index
   	@q = Ad.without_status(:draft, :published).search(params[:q])
     @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
   end
 
+  def ad_types
+    @types = AdType.paginate(:page => params[:page], :per_page => 10)
+  end
+
   def users
-  	@q = Ad.without_status(:draft).search(params[:q])
-    @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
+    @users = User.paginate(:page => params[:page], :per_page => 10)
   end
 
   def approve_ad

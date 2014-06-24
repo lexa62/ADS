@@ -2,15 +2,19 @@
 <div class="block" id="block-signup">
   <h2>Sign up</h2>
   <div class="content">
-    <div class="flash">
-      <% flash.each do |type, message| %>
-        <div class="message <%= type %>">
-          <p>
-            <%= message %>
-          </p>
+
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>">
+          <ul>
+            <li>
+            <%= value %>
+            </li>
+          </ul>
         </div>
       <% end %>
-    </div>
+
+    <%= devise_error_messages! %>
+    
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form" }) do |f| %>
       <div class="group">
         <%= f.label :email, :class => "label" %>
@@ -20,7 +24,7 @@
       <div class="group">
         <%= f.label :password, :class => "label" %>
         <%= f.password_field :password, :class => "text_field" %>
-        <span class="description">must be at least 6 characters</span>
+        <span class="description">must be at least 8 characters</span>
       </div>
       <div class="group">
         <%= f.label :password_confirmation, "Re-enter Password", :class => "label" %>

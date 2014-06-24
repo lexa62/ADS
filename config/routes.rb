@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
+
   root 'ads#index'
   devise_for :users
   resources :ads
 
+  get '/my_ads' => 'ads#users_ads', :as => :my_ads
   get 'moderating/:id' => 'ads#moderating', :as => :ads_moderating
   get 'make_draft/:id' => 'ads#make_draft', :as => :ads_make_draft
   get 'edit_rejected/:id' => 'ads#edit_rejected_ad', :as => :ads_edit_rejected
-  get '/admin' => 'admin#index', :as => :admin
-  get '/admin/approve/:id' => 'admin#approve_ad', :as => :ads_approving
-  get '/admin/ban/:id' => 'admin#ban_ad', :as => :ads_rejecting
-  get '/my_ads' => 'ads#users_ads', :as => :my_ads
+
+  scope "/admin" do
+    get '/' => 'admin#index', :as => :admin
+    get '/approve/:id' => 'admin#approve_ad', :as => :ads_approving
+    get '/ban/:id' => 'admin#ban_ad', :as => :ads_rejecting
+    get '/ad_types' => 'admin#ad_types', :as => :ad_types
+    get '/users' => 'admin#users', :as => :users
+    resources :users
+    resources :ad_types, :only => [:new, :create, :destroy]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -2,6 +2,15 @@
 <div class="block" id="block-signup">
   <h2>Edit <%= resource_name.to_s.humanize %></h2>
   <div class="content">
+  <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+      <ul>
+        <li>
+          <%= value %>
+        </li>
+      </ul>
+  </div>
+<% end %>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), 
             html: { method: :put, :class => "form" }) do |f| %>

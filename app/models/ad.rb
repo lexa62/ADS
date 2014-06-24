@@ -32,5 +32,5 @@ class Ad < ActiveRecord::Base
     event :edit_rejected_ad do
       transition :rejected => :draft
     end
-    end
+  end
 end
