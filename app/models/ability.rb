@@ -8,7 +8,7 @@ class Ability
   end
 
   def guest
-      can :read, Ad #for guest without roles
+      can :read, Ad
   end
 
   def user

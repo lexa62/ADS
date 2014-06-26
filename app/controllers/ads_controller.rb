@@ -3,7 +3,7 @@ class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
 
   def index
-    @q = Ad.search(params[:q])
+    @q = Ad.with_status(:published).search(params[:q])
     @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
   end
 

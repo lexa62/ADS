@@ -8,6 +8,17 @@
   <div class="content">            
     <h2 class="title"><%= t("web-app-theme.new", :default => "New")%> Ad Type</h2>
     <div class="inner">
+
+    <% if @ad_type.errors.any? %>
+      <div class="alert alert-error">
+        <ul>
+        <% @ad_type.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
       <%= form_for :ad_type, :url => ad_types_path, :html => { :class => :form } do |f| -%>
         
         <div class="group">

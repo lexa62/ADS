@@ -1,5 +1,6 @@
 class Ad < ActiveRecord::Base
-	#enumerize :status, :in => [:draft, :new, :rejected, :approved, :published, :archive], scope: true
+  validates :title, :text, :ad_type_id, :user_id, presence: true
+  validates :price, numericality: { only_integer: true, less_than: 1000000 }
 	belongs_to :ad_type, inverse_of: :ads
 	belongs_to :user
 

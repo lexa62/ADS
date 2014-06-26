@@ -33,4 +33,17 @@ class AdminController < ApplicationController
         redirect_to admin_path, :flash => {:error => 'ad can not baned.'}
       end
   end
+
+  def approve_ads
+    
+    @ads = Ad.find(params[:ad_ids])
+    @ads.each do |ad|
+      if ad.new?
+        ad.approve_ad
+      else
+        redirect_to admin_path, :flash => {:error => 'ad should be with status new!'} and return
+      end
+    end 
+    redirect_to admin_path, notice: 'ads was successfully approved.'
+  end
 end

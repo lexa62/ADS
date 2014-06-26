@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   scope "/admin" do
     get '/' => 'admin#index', :as => :admin
     get '/approve/:id' => 'admin#approve_ad', :as => :ads_approving
+    post '/approve' => 'admin#approve_ads', :as => :approve_multiple_ads
     get '/ban/:id' => 'admin#ban_ad', :as => :ads_rejecting
     get '/ad_types' => 'admin#ad_types', :as => :ad_types
     get '/users' => 'admin#users', :as => :users

@@ -1,4 +1,5 @@
 class AdType < ActiveRecord::Base
+  validates :name, presence: true
   has_many :ads, inverse_of: :ad_type
 
   def can_delete?
