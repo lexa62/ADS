@@ -7,6 +7,9 @@ gem 'will_paginate'
 gem 'cancan'
 gem 'state_machine'
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
+gem "paperclip", "~> 4.1"
+gem "nested_form"
+gem 'fog'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

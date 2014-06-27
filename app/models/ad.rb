@@ -3,6 +3,8 @@ class Ad < ActiveRecord::Base
   validates :price, numericality: { only_integer: true, less_than: 1000000 }
 	belongs_to :ad_type, inverse_of: :ads
 	belongs_to :user
+  has_many :images, dependent: :destroy
+  accepts_nested_attributes_for :images, :allow_destroy => true
 
 	state_machine :status, :initial => :draft do
     

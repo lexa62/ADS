@@ -9,6 +9,7 @@ class AdsController < ApplicationController
 
   def new
     @ad = Ad.new
+    @ad.images.build
   end
 
   def edit
@@ -90,6 +91,6 @@ class AdsController < ApplicationController
     end
 
     def ad_params
-      params.require(:ad).permit(:title, :text, :price, :ad_type_id)
+      params.require(:ad).permit!
     end
 end

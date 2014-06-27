@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'ads#index'
   devise_for :users
   resources :ads
-
+  
   get '/my_ads' => 'ads#users_ads', :as => :my_ads
   get 'moderating/:id' => 'ads#moderating', :as => :ads_moderating
   get 'make_draft/:id' => 'ads#make_draft', :as => :ads_make_draft

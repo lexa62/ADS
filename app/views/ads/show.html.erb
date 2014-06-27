@@ -36,6 +36,14 @@
           <%= @ad.ad_type.name %>
         </p>
 
+        <p>
+          <b><%= t("activerecord.attributes.ad.images", :default => t("activerecord.labels.type", :default => "Images")) %>:</b>
+          <% @ad.images.each do |image| %>
+            <p><%= image_tag(image.file.url(:small)) %>
+            <%= link_to "Original", image.file.url %></p>
+          <% end %>
+        </p>
+
       <div class="wat-cf">
         <% if can? :edit, @ad %>
           <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_ad_path(@ad), :class => "button" %>
