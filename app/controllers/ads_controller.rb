@@ -43,9 +43,10 @@ class AdsController < ApplicationController
   end
 
   def destroy
+    session[:return_to] ||= request.referer
     @ad.destroy
     respond_to do |format|
-      format.html { redirect_to ads_url, notice: 'ad was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'ad was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
