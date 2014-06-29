@@ -11,6 +11,8 @@ gem "paperclip", "~> 4.1"
 gem "nested_form"
 gem 'fog'
 gem 'whenever', :require => false
+gem 'rspec-rails'
+gem 'capybara'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
