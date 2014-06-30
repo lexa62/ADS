@@ -31,18 +31,21 @@
   <%= f.collection_select :ad_type_id, AdType.all, :id, :name, prompt: true%>
 </div>
 
-<%= f.fields_for :images do |image| %>  
-    <% if image.object.new_record? %>
-      <%= image.file_field(:file) %>
-    <% else %> 
-      <%= image_tag(image.object.file.url(:small)) %>
-      <%= link_to "Original", image.object.file.url %>
-      <%= image.hidden_field :_destroy %>
-      <%= image.link_to_remove "X" %>
-    <% end %>
-<% end %>
+<div class="group">
+<%= f.label :images, t("activerecord.attributes.ad.images", :default => "Images"), :class => :label %>
+  <%= f.fields_for :images do |image| %>  
+      <% if image.object.new_record? %>
+        <%= image.file_field(:file) %>
+      <% else %> 
+        <%= image_tag(image.object.file.url(:small)) %>
+        <%= link_to "Original", image.object.file.url %>
+        <%= image.hidden_field :_destroy %>
+        <%= image.link_to_remove "X" %>
+      <% end %>
+  <% end %>
 
-  <p><%= f.link_to_add "Add image", :images %></p>
+  <%= f.link_to_add "Add image", :images %>
+</div>
 
 <div class="group navform wat-cf">
   <button class="button" type="submit">

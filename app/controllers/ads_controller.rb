@@ -92,6 +92,6 @@ class AdsController < ApplicationController
     end
 
     def ad_params
-      params.require(:ad).permit!
+      params.require(:ad).permit(:title, :text, :price, :user_id, :ad_type_id, images_attributes: [:id, :file, :_destroy])
     end
 end
