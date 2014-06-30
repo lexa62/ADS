@@ -1,22 +1,22 @@
 == README
 
 * Ruby version:
-  $ ruby '2.1.1'
+    ruby '2.1.1'
 
 * Database creation:
 
-  $ rake db:create
+    rake db:create
 
 * Database initialization:
 
-  $ rake db:schema:load
-  $ rake db:seed
+    rake db:schema:load
+    rake db:seed
 
 * How to run the test suite
 
-  $ rspec <spec_path>(example: rspec spec/models/user_spec.rb)
+    rspec <spec_path>(example: rspec spec/models/user_spec.rb)
 
 * Load schedule:
 
-  $ whenever --update-crontab ads_app
+    whenever --update-crontab ads_app
   
