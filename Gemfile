@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
 gem 'web-app-theme'
 gem 'devise'
 gem 'enumerize'
@@ -50,4 +49,3 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  
   before_filter do  # fix ActiveModel::ForbiddenAttributesError
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"

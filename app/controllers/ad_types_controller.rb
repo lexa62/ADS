@@ -2,11 +2,11 @@ class AdTypesController < ApplicationController
   load_and_authorize_resource
 
   def new
-  	@ad_type = AdType.new
+    @ad_type = AdType.new
   end
 
   def create
-  	@ad_type = AdType.new(ad_type_params)
+    @ad_type = AdType.new(ad_type_params)
 
     respond_to do |format|
       if @ad_type.save
@@ -20,7 +20,7 @@ class AdTypesController < ApplicationController
   end
 
   def destroy
-  	@ad_type.destroy
+    @ad_type.destroy
     respond_to do |format|
       format.html { redirect_to ad_types_url, notice: 'type was successfully destroyed.' }
       format.json { head :no_content }
@@ -28,7 +28,8 @@ class AdTypesController < ApplicationController
   end
 
   private
-    def ad_type_params
-      params.require(:ad_type).permit(:name)
-    end
+
+  def ad_type_params
+    params.require(:ad_type).permit(:name)
+  end
 end

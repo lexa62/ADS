@@ -8,7 +8,7 @@ class Ability
   end
 
   def guest
-      can :read, Ad
+    can :read, Ad
   end
 
   def user
@@ -19,7 +19,7 @@ class Ability
     can :manipulate, Ad do |ad|
       ad.user_id == @user.id
     end
-    
+
     can :update, Ad do |ad|
       ad.draft? && ad.user_id == @user.id
     end

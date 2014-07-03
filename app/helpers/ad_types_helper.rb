@@ -1,2 +1,0 @@
-module AdTypesHelper
-end
