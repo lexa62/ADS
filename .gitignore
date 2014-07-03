@@ -17,3 +17,6 @@
 /public/system
 /public/images/files
 /public/home
+
+# Ignore database config.
+/config/database.yml
