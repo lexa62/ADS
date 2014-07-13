@@ -4,12 +4,12 @@
       <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", ad_types_path  %></li>
       <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_ad_type_path %></li>
     </ul>
-  </div>          
-  <div class="content">          
+  </div>
+  <div class="content">
     <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Types</h2>
     <div class="inner">
       <table class="table">
-        <tr>             
+        <tr>
           <th class="first">ID</th>
           <th>
             <%= t("activerecord.attributes.type.name", :default => t("activerecord.labels.name", :default => "Name")) %>
@@ -35,15 +35,15 @@
             <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", type, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
             <% end %>
           </td>
-        </tr>          
+        </tr>
         <% end -%>
       </table>
       <div class="actions-bar wat-cf">
         <div class="actions">
         </div>
-        
+
         <%= will_paginate @types  %>
-        
+
       </div>
     </div>
   </div>

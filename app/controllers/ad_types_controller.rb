@@ -20,9 +20,14 @@ class AdTypesController < ApplicationController
   end
 
   def destroy
-    @ad_type.destroy
+    if @ad_type.destroy
+      message = 'type was successfully destroyed.'
+    else
+      message = 'type can not be destroyed'
+    end
+
     respond_to do |format|
-      format.html { redirect_to ad_types_url, notice: 'type was successfully destroyed.' }
+      format.html { redirect_to ad_types_url, notice: message }
       format.json { head :no_content }
     end
   end
