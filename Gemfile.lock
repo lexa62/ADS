@@ -73,6 +73,9 @@ GEM
     erubis (2.7.0)
     excon (0.37.0)
     execjs (2.2.0)
+    fabrication (2.11.3)
+    faker (1.4.1)
+      i18n (~> 0.5)
     fog (1.22.1)
       fog-brightbox
       fog-core (~> 1.22)
@@ -216,6 +219,8 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   enumerize
+  fabrication
+  faker
   fog
   jbuilder (~> 2.0)
   jquery-rails

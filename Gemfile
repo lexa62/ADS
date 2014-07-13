@@ -12,6 +12,8 @@ gem 'fog'
 gem 'whenever', :require => false
 gem 'rspec-rails'
 gem 'capybara'
+gem 'fabrication'
+gem 'faker'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

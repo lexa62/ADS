@@ -2,83 +2,100 @@ require 'rails_helper'
 require 'spec_helper'
 
 describe Ad do
+  describe "fields" do
+    let(:user) { Fabricate(:user) }
+    let(:ad_type) { Fabricate(:ad_type) }
+    subject(:ad) { Fabricate(:ad, ad_type: ad_type, user: user) }
 
-  before :each do
-    @ad = Ad.new(title: "123", text: "123", price: 123, user_id: 1, ad_type_id: 1)
-  end
+    it { is_expected.to respond_to(:title) }
+    it { is_expected.to respond_to(:text) }
+    it { is_expected.to respond_to(:price) }
+    it { is_expected.to respond_to(:user) }
+    it { is_expected.to respond_to(:ad_type) }
 
-  subject { @ad }
+    it { is_expected.to be_valid }
 
-  it { should respond_to(:title) }
-  it { should respond_to(:text) }
-  it { should respond_to(:price) }
-  it { should respond_to(:user) }
-  it { should respond_to(:ad_type) }
+    describe "price format" do
+      it "is invalid when price isn't an integer" do
+        ad.price = 123.123
+        expect(ad).not_to be_valid
+      end
 
-  it { should be_valid }
-
-  describe "when price format is invalid" do
-    it "should be invalid" do
-      prices = [123.123, 10_000_000]
-      prices.each do |invalid_price|
-        @ad.price = invalid_price
-        expect(@ad).not_to be_valid
+      it "is invalid when price is larger than 1 million" do
+        ad.price = 10_000_000
+        expect(ad).not_to be_valid
       end
     end
   end
 
-  describe 'states' do
-    describe ':draft' do
-      it 'should be an initial state' do
-        @ad.should be_draft
+  context 'in draft state' do
+    let(:user) { Fabricate(:user) }
+    let(:ad_type) { Fabricate(:ad_type) }
+    let(:ad) { Fabricate(:ad, ad_type: ad_type, user: user) }
+
+    it 'can not be transferred to any state except new' do
+      events = ['moderating', 'publish', 'in_archive', 'reject_ad', 'approve_ad', 'make_draft', 'edit_rejected_ad']
+      array = []
+      events.each do |event|
+        ad.status = 'draft'
+        ad.send(event)
+        array << ad.status.in?(['draft', 'new'])
       end
 
-      it 'should change to :new on :moderating' do
-        @ad.moderating
-        @ad.should be_new
+      expect(array).not_to include(false)
+    end
+
+    it 'transferring to new state by #moderating' do
+      ad.moderating
+      expect(ad).to be_new
+    end
+
+    it "doesn't respond to events other than #moderating" do
+      events = ['publish', 'in_archive', 'reject_ad', 'approve_ad', 'make_draft', 'edit_rejected_ad']
+      array = []
+      events.each do |event|
+        array << ad.send(event)
       end
 
-      it 'should change to :approved on :approve_ad' do
-        @ad.status = "new"
-        @ad.approve_ad
-        @ad.should be_approved
+      expect(array).not_to include(true)
+    end
+  end
+
+  context 'in new state' do
+    let(:user) { Fabricate(:user) }
+    let(:ad_type) { Fabricate(:ad_type) }
+    let(:ad) { Fabricate(:ad, ad_type: ad_type, user: user, status: 'new') }
+
+    it 'can not be transferred to any state except rejected and approved' do
+      events = ['moderating', 'publish', 'in_archive', 'reject_ad', 'approve_ad', 'make_draft', 'edit_rejected_ad']
+      array = []
+      events.each do |event|
+        ad.status = 'new'
+        ad.send(event)
+        array << ad.status.in?(['new', 'rejected', 'approved'])
       end
 
-      it 'should change to :rejected on :reject_ad' do
-        @ad.status = "new"
-        @ad.reject_ad
-        @ad.should be_rejected
+      expect(array).not_to include(false)
+    end
+
+    it 'transferring to rejected state by #reject_ad' do
+      ad.reject_ad
+      expect(ad).to be_rejected
+    end
+
+    it 'transferring to approved state by #approve_ad' do
+      ad.approve_ad
+      expect(ad).to be_approved
+    end
+
+    it "doesn't respond to events other than #reject_ad or #approve_ad" do
+      events = ['moderating', 'publish', 'in_archive', 'make_draft', 'edit_rejected_ad']
+      array = []
+      events.each do |event|
+        array << ad.send(event)
       end
 
-      it 'should change to :published on :publish' do
-        @ad.status = "published"
-        @ad.in_archive
-        @ad.should be_archive
-      end
-
-      it 'should change to :archive on :in_archive' do
-        @ad.status = "approved"
-        @ad.publish
-        @ad.should be_published
-      end
-
-      it 'should change to :draft on :make_draft' do
-        @ad.status = "archive"
-        @ad.make_draft
-        @ad.should be_draft
-      end
-
-      it 'should change to :draft on :edit_rejected_ad' do
-        @ad.status = "rejected"
-        @ad.edit_rejected_ad
-        @ad.should be_draft
-      end
-
-      ['publish', 'in_archive', 'reject_ad', 'approve_ad', 'make_draft', 'edit_rejected_ad'].each do |action|
-        it "should return false for #{action}" do
-          @ad.send(action).should == false
-        end
-      end
+      expect(array).not_to include(true)
     end
   end
 end

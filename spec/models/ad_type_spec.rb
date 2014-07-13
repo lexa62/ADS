@@ -2,13 +2,16 @@ require 'rails_helper'
 require 'spec_helper'
 
 describe AdType do
+  describe "fields" do
+    let(:ad_type) { Fabricate(:ad_type) }
 
-  subject (:ad_type) { AdType.new(name: "test") }
+    it "is respond to name" do
+      expect(ad_type).to respond_to(:name)
+    end
 
-  it { should respond_to(:name) }
-
-  describe "when name is too long" do
-    before { ad_type.name = "a" * 51 }
-    it { should_not be_valid }
+    it "is invalid when name is too long" do
+      ad_type.name = "a" * 51
+      expect(ad_type).to_not be_valid
+    end
   end
 end
