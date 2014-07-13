@@ -12,11 +12,15 @@
     rake db:schema:load
     rake db:seed
 
-* How to run the test suite
+* How to run the test suite:
 
     rspec <spec_path>(example: rspec spec/models/user_spec.rb)
 
 * Load schedule:
 
     whenever --update-crontab ads_app
-  
+
+* Custom rake tasks:
+
+    rake ads:archive
+    rake ads:publish
