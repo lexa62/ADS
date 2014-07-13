@@ -1,6 +1,6 @@
 class AdsController < ApplicationController
-  load_and_authorize_resource :except => [:index, :show]
-  before_action :set_ad, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource :except => [:index]
+  skip_authorize_resource :only => :show
 
   def index
     @q = Ad.with_status(:published).search(params[:q])
@@ -8,15 +8,16 @@ class AdsController < ApplicationController
   end
 
   def new
-    @ad = Ad.new
     @ad.images.build
   end
 
   def edit
   end
 
+  def show
+  end
+
   def create
-    @ad = Ad.new(ad_params)
     @ad.user_id = current_user.id
     respond_to do |format|
       if @ad.save
@@ -56,7 +57,6 @@ class AdsController < ApplicationController
   end
 
   def moderating
-    @ad = Ad.find(params[:id])
     if @ad.user_id == current_user.id && @ad.draft?
       @ad.moderating
       redirect_to :my_ads, notice: 'ad was successfully published.'
@@ -66,7 +66,6 @@ class AdsController < ApplicationController
   end
 
   def make_draft
-    @ad = Ad.find(params[:id])
     if @ad.user_id == current_user.id && @ad.archive?
       @ad.make_draft
       redirect_to :my_ads, notice: 'ad was successfully move in drafts.'
@@ -76,7 +75,6 @@ class AdsController < ApplicationController
   end
 
   def edit_rejected_ad
-    @ad = Ad.find(params[:id])
     if @ad.user_id == current_user.id && @ad.rejected?
       @ad.edit_rejected_ad
       redirect_to :my_ads, notice: 'ad was successfully moved in drafts.'
@@ -86,10 +84,6 @@ class AdsController < ApplicationController
   end
 
   private
-
-  def set_ad
-    @ad = Ad.find(params[:id])
-  end
 
   def ad_params
     params.require(:ad).permit(:title, :text, :price, :user_id, :ad_type_id, images_attributes: [:id, :file, :_destroy])

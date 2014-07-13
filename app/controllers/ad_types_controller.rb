@@ -2,12 +2,9 @@ class AdTypesController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @ad_type = AdType.new
   end
 
   def create
-    @ad_type = AdType.new(ad_type_params)
-
     respond_to do |format|
       if @ad_type.save
         format.html { redirect_to ad_types_url, notice: 'type was successfully created.' }

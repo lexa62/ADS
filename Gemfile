@@ -3,7 +3,7 @@ gem 'web-app-theme'
 gem 'devise'
 gem 'enumerize'
 gem 'will_paginate'
-gem 'cancan'
+gem 'cancancan'
 gem 'state_machine'
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
 gem "paperclip", "~> 4.1"
