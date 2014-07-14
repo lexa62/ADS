@@ -1,12 +1,12 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", ads_path  %></li>
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", admin_ads_path  %></li>
       <% if can? :create, Ad %>
         <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_ad_path %></li>
       <% end %>
     </ul>
-  </div>          
+  </div>
   <% if can? :read, Ad %>
     <div class="content">
       <h2 class="title"><%= t("web-app-theme.all", :default => "Moderated")  %> Ads</h2>
@@ -27,13 +27,13 @@
               <tr class="<%= cycle("odd", "even") %>">
                 <td><%= check_box_tag "ad_ids[]", ad.id %></td>
                 <td><%= ad.id %></td>
-                <td><%= link_to ad.title, ad_path(ad) %></td>
+                <td><%= link_to ad.title, admin_ad_path(ad) %></td>
                 <td><%= number_to_currency(ad.price, :unit => "$", :precision => 0) %></td>
                 <td><%= ad.ad_type.name %></td>
                 <td><%= ad.status %></td>
                 <td><%= time_ago_in_words(ad.created_at)+ " ago" %></td>
                 <td class="last">
-                  <%= link_to "#{t("web-app-theme.show", :default => "Show")}", ad_path(ad) %>
+                  <%= link_to "#{t("web-app-theme.show", :default => "Show")}", admin_ad_path(ad) %>
                   <% if can? :edit, ad %>
                     | <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_ad_path(ad) %>
                   <% end %>
@@ -65,6 +65,6 @@
   <% end %>
 </div>
 
-<% provide(:url, admin_url) %>
+<% provide(:url, admin_ads_url) %>
 <% content_for :sidebar, render(:partial => 'ads/search') -%>
 <% content_for :sidebar, render(:partial => 'ads/sidebar') -%>

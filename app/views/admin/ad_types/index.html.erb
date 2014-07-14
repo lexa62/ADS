@@ -1,8 +1,8 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", ad_types_path  %></li>
-      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_ad_type_path %></li>
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", admin_ad_types_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_admin_ad_type_path %></li>
     </ul>
   </div>
   <div class="content">
@@ -32,7 +32,7 @@
           </td>
           <td class="last">
             <% if (can? :ad_types, :AdminSection) && type.can_delete? %>
-            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", type, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_ad_type_path(type), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
             <% end %>
           </td>
         </tr>

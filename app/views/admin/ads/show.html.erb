@@ -1,0 +1,61 @@
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", ads_path  %></li>
+      <% if can? :create, Ad %>
+        <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_ad_path %></li>
+      <% end %>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", ad_path %></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="inner">
+
+        <p>
+          <b><%= t("activerecord.attributes.ad.title", :default => t("activerecord.labels.title", :default => "Title")) %>:</b>
+          <%= @ad.title %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.ad.text", :default => t("activerecord.labels.text", :default => "Text")) %>:</b>
+          <%= @ad.text %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.ad.status", :default => t("activerecord.labels.status", :default => "Price")) %>:</b>
+          <%= @ad.price %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.ad.status", :default => t("activerecord.labels.status", :default => "Status")) %>:</b>
+          <%= @ad.status %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.ad.type", :default => t("activerecord.labels.type", :default => "Type")) %>:</b>
+          <%= @ad.ad_type.name %>
+        </p>
+
+        <% if @ad.images.any? %>
+          <p>
+            <b><%= t("activerecord.attributes.ad.images", :default => t("activerecord.labels.type", :default => "Images")) %>:</b>
+            <% @ad.images.each do |image| %>
+              <p><%= image_tag(image.file.url(:small)) %>
+              <%= link_to "Original", image.file.url %></p>
+            <% end %>
+          </p>
+        <% end %>
+
+      <div class="wat-cf">
+        <% if can? :edit, @ad %>
+          <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_ad_path(@ad), :class => "button" %>
+        <% end %>
+        <% if can? :destroy, @ad %>
+          <%= link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), ad_path(@ad), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'ads/sidebar') -%>

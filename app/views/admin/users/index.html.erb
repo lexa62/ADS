@@ -1,15 +1,15 @@
 <div class="block">
   <div class="secondary-navigation">
     <ul class="wat-cf">
-      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", users_path  %></li>
-      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_user_path %></li>
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", admin_users_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_admin_user_path %></li>
     </ul>
-  </div>          
-  <div class="content">          
+  </div>
+  <div class="content">
     <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Users</h2>
     <div class="inner">
       <table class="table">
-        <tr>             
+        <tr>
           <th class="first">ID</th>
           <th>
             <%= t("activerecord.attributes.user.email", :default => t("activerecord.labels.email", :default => "Email")) %>
@@ -28,7 +28,7 @@
             <%= user.id %>
           </td>
           <td>
-            <%=link_to user.email, user_path(user)  %>
+            <%=link_to user.email, admin_user_path(user)  %>
           </td>
           <td>
             <%= user.role %>
@@ -38,21 +38,21 @@
           </td>
           <td class="last">
             <% if can? :edit, user %>
-              <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_user_path(user) %>
+              <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_admin_user_path(user) %>
             <% end %>
             <% if can? :destroy, user %>
-              | <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", user, :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+              | <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_user_path(user), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
             <% end %>
           </td>
-        </tr>          
+        </tr>
         <% end -%>
       </table>
       <div class="actions-bar wat-cf">
         <div class="actions">
         </div>
-        
+
         <%= will_paginate @users  %>
-        
+
       </div>
     </div>
   </div>

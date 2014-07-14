@@ -43,17 +43,11 @@ class AdsController < ApplicationController
   end
 
   def destroy
-    session[:return_to] ||= request.referer
     @ad.destroy
     respond_to do |format|
-      format.html { redirect_to session.delete(:return_to), notice: 'ad was successfully destroyed.' }
+      format.html { redirect_to ads_url, notice: 'ad was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def users_ads
-    @q = current_user.ads.search(params[:q])
-    @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
   end
 
   def moderating
@@ -81,6 +75,38 @@ class AdsController < ApplicationController
     else
       redirect_to :my_ads, :flash => {:error => 'ad can not moved in drafts.'}
     end
+  end
+
+  def approve_ad
+    @ad = Ad.find(params[:id])
+    if current_user.admin? && @ad.new?
+      @ad.approve_ad
+      redirect_to admin_path, notice: 'ad was successfully approved.'
+    else
+      redirect_to admin_path, :flash => {:error => 'ad can not approved.'}
+    end
+  end
+
+  def ban_ad
+    @ad = Ad.find(params[:id])
+    if current_user.admin? && @ad.new?
+      @ad.reject_ad
+      redirect_to admin_path, notice: 'ad was successfully baned.'
+    else
+      redirect_to admin_path, :flash => {:error => 'ad can not baned.'}
+    end
+  end
+
+  def approve_ads
+    @ads = Ad.find(params[:ad_ids])
+    @ads.each do |ad|
+      if ad.new?
+        ad.approve_ad
+      else
+        redirect_to admin_path, :flash => {:error => 'ad should be with status new!'} and return
+      end
+    end
+    redirect_to admin_path, notice: 'ads was successfully approved.'
   end
 
   private
