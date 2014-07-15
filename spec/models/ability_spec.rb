@@ -30,6 +30,6 @@ describe Ability do
 
     it { is_expected.to be_able_to(:manage, ad_type) }
     it { is_expected.to be_able_to(:manage, user) }
-    it { is_expected.not_to be_able_to(:destroy, ad) }
+    it { is_expected.to be_able_to(:destroy, ad) }
   end
 end

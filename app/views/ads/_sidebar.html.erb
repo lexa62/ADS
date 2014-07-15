@@ -2,12 +2,16 @@
   <h3>Links</h3>
   <ul class="navigation">
     <li><%= link_to 'Home', root_path %></li>
-    <% if can? :users_ads, Ad %>
+    <% if can? :ads, Ad %>
       <li><%= link_to 'My ads', my_ads_path %></li>
     <% end %>
-    <% if can? :manage, :AdminSection %>
-      <li><%= link_to 'Admin section', admin_ads_path %></li>
+    <% if can? :moderate, Ad %>
+      <li><%= link_to 'Moderate ads', admin_ads_path %></li>
+    <% end %>
+    <% if can? :manage, AdType %>
       <li><%= link_to 'Ad types', admin_ad_types_path %></li>
+    <% end %>
+    <% if can? :manage, User %>
       <li><%= link_to 'Users', admin_users_path %></li>
     <% end %>
   </ul>

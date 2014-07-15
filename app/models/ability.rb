@@ -12,30 +12,19 @@ class Ability
   end
 
   def user
-    alias_action :users_ads, :moderating, :make_draft, :edit_rejected_ad, :to => :manipulate
+    alias_action :ads, :moderating, :make_draft, :edit_rejected_ad, :to => :manipulate
 
     guest
     can :create, Ad
-    can :manipulate, Ad do |ad|
-      ad.user_id == @user.id
-    end
-
-    can :update, Ad do |ad|
-      ad.draft? && ad.user_id == @user.id
-    end
-
-    can :destroy, Ad do |ad|
-      ad.user_id == @user.id
-    end
+    can [:manipulate, :destroy], Ad, user_id: @user.id
+    can :update, Ad, user_id: @user.id, status: 'draft'
   end
 
   def admin
+    alias_action :approve_ad, :ban_ad, :approve_ads, :to => :moderate
+
     guest
-    can :manage, :AdminSection
-    can :manage, AdType
-    can :manage, User
-    can :destroy, Ad do |ad|
-      !ad.draft?
-    end
+    can :manage, [AdType, User]
+    can [:moderate, :destroy], Ad
   end
 end

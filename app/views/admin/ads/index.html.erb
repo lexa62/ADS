@@ -41,10 +41,10 @@
                     | <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", ad_path(ad), :method => :delete,
                       :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
                   <% end %>
-                  <% if (can? :approve_ad, :AdminSection) && ad.new? %>
+                  <% if (can? :approve_ad, Ad) && ad.new? %>
                     | <%= link_to "#{t("web-app-theme.edit", :default => "Approve")}", ads_approving_path(ad) %>
                   <% end %>
-                  <% if (can? :ban_ad, :AdminSection) && ad.new? %>
+                  <% if (can? :ban_ad, Ad) && ad.new? %>
                     | <%= link_to "#{t("web-app-theme.edit", :default => "Ban")}", ads_rejecting_path(ad) %>
                   <% end %>
                 </td>

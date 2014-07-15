@@ -31,7 +31,7 @@
             <%= type.created_at %>
           </td>
           <td class="last">
-            <% if (can? :ad_types, :AdminSection) && type.can_delete? %>
+            <% if (can? :destroy, AdType) && type.can_delete? %>
             <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_ad_type_path(type), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
             <% end %>
           </td>

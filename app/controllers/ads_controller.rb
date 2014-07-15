@@ -81,9 +81,9 @@ class AdsController < ApplicationController
     @ad = Ad.find(params[:id])
     if current_user.admin? && @ad.new?
       @ad.approve_ad
-      redirect_to admin_path, notice: 'ad was successfully approved.'
+      redirect_to admin_ads_path, notice: 'ad was successfully approved.'
     else
-      redirect_to admin_path, :flash => {:error => 'ad can not approved.'}
+      redirect_to admin_ads_path, :flash => {:error => 'ad can not approved.'}
     end
   end
 
@@ -91,9 +91,9 @@ class AdsController < ApplicationController
     @ad = Ad.find(params[:id])
     if current_user.admin? && @ad.new?
       @ad.reject_ad
-      redirect_to admin_path, notice: 'ad was successfully baned.'
+      redirect_to admin_ads_path, notice: 'ad was successfully baned.'
     else
-      redirect_to admin_path, :flash => {:error => 'ad can not baned.'}
+      redirect_to admin_ads_path, :flash => {:error => 'ad can not baned.'}
     end
   end
 
@@ -103,10 +103,10 @@ class AdsController < ApplicationController
       if ad.new?
         ad.approve_ad
       else
-        redirect_to admin_path, :flash => {:error => 'ad should be with status new!'} and return
+        redirect_to admin_ads_path, :flash => {:error => 'ad should be with status new!'} and return
       end
     end
-    redirect_to admin_path, notice: 'ads was successfully approved.'
+    redirect_to admin_ads_path, notice: 'ads was successfully approved.'
   end
 
   private
