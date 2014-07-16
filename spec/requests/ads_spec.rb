@@ -29,7 +29,7 @@ describe "Ads" do
 
     describe "check features" do
       let(:user) { Fabricate(:user) }
-      let(:ad_type) { Fabricate(:ad_type) }
+      let(:ad_type) { Fabricate(:ad_type, name: 'IT') }
 
       before(:each) do
         login_as(user, :scope => :user)
@@ -86,7 +86,7 @@ describe "Ads" do
           visit root_path
           fill_in "Title contains", :with => "first_ad"
           click_on "Search"
-          #first tr - name of ad's fields, second tr - ad with title first_ad
+          # first tr - name of ad's fields, second tr - ad with title first_ad
           expect(page).to have_selector('table tr', count: 2)
         end
       end
@@ -106,6 +106,18 @@ describe "Ads" do
           visit root_path
           2.times { click_link "Title" }
           expect(ad2.title).to appear_before(ad1.title)
+        end
+      end
+
+      describe "by use filter for ads" do
+        it "display filtered ads " do
+          another_ad_type = Fabricate(:ad_type, name: 'Cars')
+          3.times { Fabricate(:ad, user: user, ad_type: another_ad_type, title: 'first_ad', status: 'published') }
+          5.times { Fabricate(:ad, user: user, ad_type: ad_type, title: 'first_ad', status: 'published') }
+          visit root_path
+          click_link "Cars"
+          # first tr - name of ad's fields, next tr's - ads with type Cars
+          expect(page).to have_selector('table tr', count: 4)
         end
       end
     end
