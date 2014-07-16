@@ -14,6 +14,7 @@ gem 'rspec-rails'
 gem 'capybara'
 gem 'fabrication'
 gem 'faker'
+gem 'database_cleaner'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
