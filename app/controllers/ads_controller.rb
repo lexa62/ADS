@@ -3,7 +3,11 @@ class AdsController < ApplicationController
   skip_authorize_resource :only => :show
 
   def index
-    @q = Ad.with_status(:published).search(params[:q])
+    if params[:type_id].blank?
+      @q = Ad.published.search(params[:q])
+    else
+      @q = Ad.type(params[:type_id]).search(params[:q])
+    end
     @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
   end
 

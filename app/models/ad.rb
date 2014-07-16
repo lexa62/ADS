@@ -5,6 +5,9 @@ class Ad < ActiveRecord::Base
   belongs_to :user
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images, :allow_destroy => true
+  scope :published, -> { where status: 'published' }
+  scope :type, -> (type_id) { published.where ad_type_id: type_id }
+
 
   state_machine :status, :initial => :draft do
 

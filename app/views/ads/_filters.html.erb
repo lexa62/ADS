@@ -1,0 +1,8 @@
+<div class="block">
+  <h3>Ad Types</h3>
+  <ul class="navigation">
+  <% AdType.all.each do |type| %>
+    <li><%= link_to "#{type.name}(#{type.ads.published.count})", params.merge({:type_id => type.id}) %></li>
+  <% end %>
+  </ul>
+</div>

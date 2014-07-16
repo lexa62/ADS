@@ -6,7 +6,7 @@
         <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_ad_path %></li>
       <% end %>
     </ul>
-  </div>          
+  </div>
   <% if can? :read, Ad %>
     <div class="content">
       <h2 class="title"><%= t("web-app-theme.all", :default => "Published")  %> Ads</h2>
@@ -37,15 +37,15 @@
                   :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
               <% end %>
             </td>
-          </tr>          
+          </tr>
           <% end -%>
         </table>
         <div class="actions-bar wat-cf">
           <div class="actions">
           </div>
-          
+
           <%= will_paginate @ads  %>
-          
+
         </div>
       </div>
     </div>
@@ -55,3 +55,4 @@
 <% provide(:url, ads_url) %>
 <% content_for :sidebar, render(:partial => 'search') -%>
 <% content_for :sidebar, render(:partial => 'sidebar') -%>
+<% content_for :sidebar, render(:partial => 'filters') -%>
