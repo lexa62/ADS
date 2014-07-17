@@ -64,5 +64,6 @@
 </div>
 
 <% provide(:url, my_ads_url) %>
+<% content_for :sidebar, render(:partial => 'profile') -%>
 <% content_for :sidebar, render(:partial => 'ads/search') -%>
 <% content_for :sidebar, render(:partial => 'ads/sidebar') -%>

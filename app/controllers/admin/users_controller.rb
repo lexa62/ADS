@@ -7,6 +7,7 @@ module Admin
     end
 
     def new
+      @user.build_avatar
     end
 
     def edit
@@ -51,7 +52,7 @@ module Admin
     private
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :role)
+      params.require(:user).permit(:email, :password, :password_confirmation, :role, avatar_attributes: [:id, :file, :_destroy])
     end
   end
 end

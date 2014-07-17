@@ -1,0 +1,25 @@
+<div class="block notice">
+  <h3>Profile</h3><br/>
+  <div class="content">
+
+      <p>
+        <%= image_tag current_user.avatar.file.url(:small) unless current_user.avatar.nil? -%>
+      </p>
+
+      <p>
+        <b><%= "Email" %>:</b>
+        <%= current_user.email %>
+      </p>
+
+      <p>
+          <b><%= "Role" %>:</b>
+          <%= current_user.role %>
+      </p>
+
+      <p>
+          <b><%= t("activerecord.attributes.user.created_at", :default => t("activerecord.labels.text", :default => "Created at")) %>:</b>
+              <%= current_user.created_at %>
+      </p>
+
+  </div>
+</div>

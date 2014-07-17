@@ -3,7 +3,7 @@ class Ad < ActiveRecord::Base
   validates :price, numericality: { only_integer: true, less_than: 1_000_000 }
   belongs_to :ad_type, inverse_of: :ads
   belongs_to :user
-  has_many :images, dependent: :destroy
+  has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, :allow_destroy => true
   scope :published, -> { where status: 'published' }
   scope :type, -> (type_id) { published.where ad_type_id: type_id }

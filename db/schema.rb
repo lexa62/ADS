@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626212051) do
+ActiveRecord::Schema.define(version: 20140716214640) do
 
   create_table "ad_types", force: true do |t|
     t.string   "name"
@@ -37,10 +37,9 @@ ActiveRecord::Schema.define(version: 20140626212051) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
-    t.integer  "ad_id"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
   end
-
-  add_index "images", ["ad_id"], name: "index_images_on_ad_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

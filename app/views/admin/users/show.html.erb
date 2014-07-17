@@ -12,6 +12,10 @@
     <div class="inner">
 
         <p>
+          <%= image_tag @user.avatar.file.url(:small) unless @user.avatar.nil? -%>
+        </p>
+
+        <p>
           <b><%= t("activerecord.attributes.user.title", :default => t("activerecord.labels.text", :default => "Email")) %>:</b>
           <%= @user.email %>
         </p>

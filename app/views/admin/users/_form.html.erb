@@ -21,6 +21,17 @@
     <%= f.select :role, User.role.options.values_at(1..-1) %>
   </div>
 
+  <div class="group">
+    <% if @user.avatar.nil? %>
+      <% @user.build_avatar %>
+    <% end %>
+
+    <%= f.fields_for :avatar do |field| %>
+      <%= field.label :avatar, t("activerecord.attributes.user.avatar", :default => "Avatar"), :class => :label %>
+      <%= field.file_field :file %>
+    <% end %>
+  </div>
+
 <div class="group navform wat-cf">
   <button class="button" type="submit">
     <%= image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}") %> <%= t("web-app-theme.save", :default => "Save") %>
