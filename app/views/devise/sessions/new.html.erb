@@ -11,7 +11,7 @@
         </div>
       <% end %>
     </div>
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form login" }) do |f| %>
+    <%= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form login" } do |f| %>
       <div class="group wat-cf">
         <div class="left">
           <%= f.label :email, :class => "label right" %>

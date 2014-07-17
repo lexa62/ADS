@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-  <%= nested_form_for resource, as: resource_name, url: registration_path(resource_name),
+  <%= simple_form_for resource, as: resource_name, url: registration_path(resource_name),
             html: { :multipart => true, method: :put, :class => :form } do |f| %>
 
     <%= devise_error_messages! %>

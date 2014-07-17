@@ -19,7 +19,7 @@
       </div>
     <% end %>
 
-      <%= form_for :ad_type, :url => admin_ad_types_path, :html => { :class => :form } do |f| -%>
+      <%= simple_form_for @ad_type, :url => admin_ad_types_path, :html => { :class => :form } do |f| -%>
 
         <div class="group">
           <%= f.label :name, t("activerecord.attributes.ad.title", :default => "Name"), :class => :label %>

@@ -4,8 +4,8 @@
       <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", ads_path  %></li>
       <li class="active"><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_ad_path %></li>
     </ul>
-  </div>          
-  <div class="content">            
+  </div>
+  <div class="content">
     <h2 class="title"><%= t("web-app-theme.new", :default => "New")%>  Ad</h2>
     <div class="inner">
       <%= nested_form_for @ad, :html => { :multipart => true, :class => :form } do |f| %>
