@@ -1,0 +1,33 @@
+.block
+  .secondary-navigation
+    ul.wat-cf
+      li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", admin_ad_types_path
+      li= link_to "#{t("web-app-theme.new", :default => "New")}", new_admin_ad_type_path
+  .content
+    h2.title
+      => t("web-app-theme.all", :default => "All")
+      | Types
+    .inner
+      table.table
+        tr
+          th.first ID
+          th
+            = t("activerecord.attributes.type.name", :default => t("activerecord.labels.name", :default => "Name"))
+          th
+            = t("activerecord.attributes.type.name", :default => t("activerecord.labels.name", :default => "Created at"))
+          th.last &nbsp;
+        - @types.each do |type|
+          tr class=cycle("odd", "even")
+            td
+              = type.id
+            td
+              = type.name
+            td
+              = type.created_at
+            td.last
+              - if (can? :destroy, AdType) && type.can_delete?
+                = link_to "#{t("web-app-theme.delete", :default => "Delete")}", admin_ad_type_path(type), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+      .actions-bar.wat-cf
+        .actions
+        = will_paginate @types
+- content_for :sidebar, render(:partial => 'ads/sidebar')

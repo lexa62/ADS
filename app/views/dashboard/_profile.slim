@@ -1,0 +1,21 @@
+.block.notice
+  h3 Profile
+  br/
+  .content
+    p
+      = image_tag current_user.avatar.file.url(:small) unless current_user.avatar.nil?
+    p
+      b
+        = "Email"
+        | :
+      =< current_user.email
+    p
+      b
+        = "Role"
+        | :
+      =< current_user.role
+    p
+      b
+        = t("activerecord.attributes.user.created_at", :default => t("activerecord.labels.text", :default => "Created at"))
+        | :
+      =< current_user.created_at

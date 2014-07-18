@@ -1,0 +1,32 @@
+.block
+  .secondary-navigation
+    ul.wat-cf
+      li.first= link_to "#{t("web-app-theme.list", :default=>"List")}", admin_users_path
+      - if can? :create, User
+        li= link_to "#{t("web-app-theme.new", :default=>"New")}", new_admin_user_path
+      li.active= link_to "#{t("web-app-theme.show", :default=>"Show")}", admin_user_path
+  .content
+    .inner
+      p
+        = image_tag @user.avatar.file.url(:small) unless @user.avatar.nil?
+      p
+        b
+          = t("activerecord.attributes.user.title", :default => t("activerecord.labels.text", :default => "Email"))
+          | :
+        =< @user.email
+      p
+        b
+          = t("activerecord.attributes.user.role", :default => t("activerecord.labels.text", :default => "Role"))
+          | :
+        =< @user.role
+      p
+        b
+          = t("activerecord.attributes.user.created_at", :default => t("activerecord.labels.text", :default => "Created at"))
+          | :
+        =< @user.created_at
+      .wat-cf
+        - if can? :edit, @user
+          = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_admin_user_path(@user), :class => "button"
+        - if can? :destroy, @user
+          = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), admin_user_path(@user), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+- content_for :sidebar, render(:partial => 'ads/sidebar')

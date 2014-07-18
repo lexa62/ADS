@@ -16,6 +16,7 @@ gem 'fabrication'
 gem 'faker'
 gem 'database_cleaner'
 gem 'simple_form'
+gem 'slim'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

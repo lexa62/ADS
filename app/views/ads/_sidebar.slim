@@ -1,0 +1,12 @@
+.block
+  h3 Links
+  ul.navigation
+    li= link_to 'Home', root_path
+    - if can? :ads, Ad
+      li= link_to 'Dashboard', my_ads_path
+    - if can? :moderate, Ad
+      li= link_to 'Moderate ads', admin_ads_path
+    - if can? :manage, AdType
+      li= link_to 'Ad types', admin_ad_types_path
+    - if can? :manage, User
+      li= link_to 'Users', admin_users_path

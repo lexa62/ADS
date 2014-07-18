@@ -1,0 +1,13 @@
+.block.notice
+  h3 Search
+  br/
+  .content
+    = search_form_for @q, url: yield(:url),  html: { :class => "form" } do |f|
+      .group
+        = f.label :title_cont
+        = f.search_field :title_cont, :class => "text_field"
+      .group
+        = f.label :text_cont
+        = f.search_field :text_cont, :class => "text_field"
+      .group
+        = f.submit

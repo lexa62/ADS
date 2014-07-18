@@ -1,0 +1,37 @@
+- if @ad.errors.any?
+  .alert.alert-error
+    ul
+      - @ad.errors.full_messages.each do |msg|
+        li= msg
+.group
+  = f.label :title, t("activerecord.attributes.ad.title", :default => "Title"), :class => :label
+  = f.text_field :title, :class => 'text_field'
+  span.description Ex: a simple text
+.group
+  = f.label :text, t("activerecord.attributes.ad.text", :default => "Text"), :class => :label
+  = f.text_area :text, :class => 'text_area'
+  span.description Ex: a simple text
+.group
+  = f.label :price, t("activerecord.attributes.ad.price", :default => "Price"), :class => :label
+  = f.number_field :price, :class => 'number_field'
+  span.description Ex: a simple number
+.group
+  = f.label :ad_type, t("activerecord.attributes.ad.price", :default => "Advertisement type"), :class => :label
+  = f.collection_select :ad_type_id, AdType.all, :id, :name, prompt: true
+.group
+  = f.label :images, t("activerecord.attributes.ad.images", :default => "Images"), :class => :label
+  = f.fields_for :images do |image|
+    - if image.object.new_record?
+      = image.file_field(:file)
+    - else
+      = image_tag(image.object.file.url(:small))
+      =< link_to "Original", image.object.file.url
+      = image.hidden_field :_destroy
+      =< image.link_to_remove "X"
+  = f.link_to_add "Add image", :images
+.group.navform.wat-cf
+  button.button type="submit"
+    = image_tag("web-app-theme/icons/tick.png", :alt => "#{t("web-app-theme.save", :default => "Save")}")
+    = t("web-app-theme.save", :default => "Save")
+  span.text_button_puserding= t("web-app-theme.or", :default => "or")
+  =< link_to t("web-app-theme.cancel", :default => "Cancel"), ads_path, :class => "text_button_puserding link_button"
