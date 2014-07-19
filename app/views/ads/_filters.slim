@@ -2,4 +2,4 @@
   h3 Ad Types
   ul.navigation
     - AdType.all.each do |type|
-      li= link_to "#{type.name}(#{type.ads.published.count})", params.merge({:type_id => type.id})
+      li= link_to "#{type.name}(#{type.published_ads_count})", params.merge({:type_id => type.id})

@@ -17,6 +17,7 @@ gem 'faker'
 gem 'database_cleaner'
 gem 'simple_form'
 gem 'slim'
+gem 'counter_culture', '~> 0.1.23'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

@@ -24,3 +24,4 @@
 
     rake ads:archive
     rake ads:publish
+    rake ad_types:update_counters

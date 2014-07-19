@@ -7,3 +7,7 @@ end
 every :day, :at => '0am' do
   runner "Ad.with_status(:approved).each {|ad| ad.publish}"
 end
+
+every :monday, :at => '12am' do
+  runner "Ad.counter_culture_fix_counts"
+end
