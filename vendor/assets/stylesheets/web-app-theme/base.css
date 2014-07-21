@@ -192,7 +192,7 @@ body {
   padding: 6px;
   min-width: 15px;
   text-align: center;
-  background: url(<%= image_path 'button-background.png' %>) repeat scroll 0% 0% #DDD;
+  background: url('images/button-background.png') repeat scroll 0% 0% #DDD;
   color: #111;
   border: 1px solid #C3C4BA;
 }
