@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140719203745) do
+ActiveRecord::Schema.define(version: 20140721204433) do
 
   create_table "ad_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "published_ads_count", default: 0, null: false
+    t.integer  "ads_count",           default: 0, null: false
   end
 
   create_table "ads", force: true do |t|

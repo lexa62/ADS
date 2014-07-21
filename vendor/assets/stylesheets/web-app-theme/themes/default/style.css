@@ -267,7 +267,7 @@ hr {
   min-width: 15px;
   text-align: center;
   background: #dddddd;
-  background-image: url("images/button-background.png");
+  background-image: url(<%= image_path 'button-background.png' %>);
   color: #111111;
 }
 .pagination a:hover {
@@ -420,7 +420,7 @@ ul.list li .item .avatar {
 }
 
 a.button, button.button {
-  background: #edeeed url("images/button-background.png") top;
+  background: #edeeed url(<%= image_path 'button-background.png' %>) top;
   border: 1px solid #c3c4ba;
   font-family: "MuseoSans500", helvetica, arial, sans-serif;
   font-weight: normal;
@@ -433,7 +433,7 @@ a.button, button.button {
 }
 a.button:link, a.button:visited, a.button:hover, a.button:active, button.button:link, button.button:visited, button.button:hover, button.button:active {
   font-weight: normal;
-  background: #edeeed url("images/button-background.png") top;
+  background: #edeeed url(<%= image_path 'button-background.png' %>) top;
 }
 
 a.button:active, button.button:active {

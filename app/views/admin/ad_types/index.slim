@@ -14,7 +14,9 @@
           th
             = t("activerecord.attributes.type.name", :default => t("activerecord.labels.name", :default => "Name"))
           th
-            = t("activerecord.attributes.type.name", :default => t("activerecord.labels.name", :default => "Created at"))
+            = t("activerecord.attributes.type.ads_count", :default => t("activerecord.labels.ads_count", :default => "Count of ads"))
+          th
+            = t("activerecord.attributes.type.created_at", :default => t("activerecord.labels.created_at", :default => "Created at"))
           th.last &nbsp;
         - @ad_types.each do |type|
           tr class=cycle("odd", "even")
@@ -22,6 +24,8 @@
               = type.id
             td
               = type.name
+            td
+              = type.ads_count
             td
               = type.created_at
             td.last
