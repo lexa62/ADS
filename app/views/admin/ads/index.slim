@@ -10,40 +10,40 @@
         => t("web-app-theme.all", :default => "Moderated")
         | Ads
       .inner
-        table.table
-          tr
-            th.first &nbsp;
-            = content_tag :th, sort_link(@q, :id), :class => "first"
-            = content_tag :th, sort_link(@q, :title)
-            = content_tag :th, sort_link(@q, :price)
-            = content_tag :th, sort_link(@q, :ad_type_id)
-            = content_tag :th, sort_link(@q, :status)
-            = content_tag :th, sort_link(@q, :created_at)
-            th.last &nbsp;
-          = form_tag(approve_multiple_ads_path, method: "post") do
-            - @ads.each do |ad|
-              tr class=cycle("odd", "even")
-                td= check_box_tag "ad_ids[]", ad.id
-                td= ad.id
-                td= link_to ad.title, admin_ad_path(ad)
-                td= number_to_currency(ad.price, :unit => "$", :precision => 0)
-                td= ad.ad_type.name
-                td= ad.status
-                td= time_ago_in_words(ad.created_at)+ " ago"
-                td.last
-                  = link_to "#{t("web-app-theme.show", :default => "Show")}", admin_ad_path(ad)
-                  - if can? :edit, ad
-                    |  | #{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_ad_path(ad)}
-                  - if can? :destroy, ad
-                    |  | #{link_to "#{t("web-app-theme.delete", :default => "Delete")}", ad_path(ad), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
-                  - if (can? :approve_ad, Ad) && ad.new?
-                    |  | #{link_to "#{t("web-app-theme.edit", :default => "Approve")}", ads_approving_path(ad)}
-                  - if (can? :ban_ad, Ad) && ad.new?
-                    |  | #{link_to "#{t("web-app-theme.edit", :default => "Ban")}", ads_rejecting_path(ad)}
-            = submit_tag "Approve ads"
-  .actions-bar.wat-cf
-    .actions
-    = will_paginate @ads
+        = form_tag approve_multiple_ads_path, method: :post do
+          table.table
+            tr
+              th.first &nbsp;
+              = content_tag :th, sort_link(@q, :id), :class => "first"
+              = content_tag :th, sort_link(@q, :title)
+              = content_tag :th, sort_link(@q, :price)
+              = content_tag :th, sort_link(@q, :ad_type_id)
+              = content_tag :th, sort_link(@q, :status)
+              = content_tag :th, sort_link(@q, :created_at)
+              th.last &nbsp;
+              - @ads.each do |ad|
+                tr class=cycle("odd", "even")
+                  td= check_box_tag "ad_ids[]", ad.id
+                  td= ad.id
+                  td= link_to ad.title, admin_ad_path(ad)
+                  td= number_to_currency(ad.price, :unit => "$", :precision => 0)
+                  td= ad.ad_type.name
+                  td= ad.status
+                  td= time_ago_in_words(ad.created_at)+ " ago"
+                  td.last
+                    = link_to "#{t("web-app-theme.show", :default => "Show")}", admin_ad_path(ad)
+                    - if can? :edit, ad
+                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_ad_path(ad)}
+                    - if can? :destroy, ad
+                      |  | #{link_to "#{t("web-app-theme.delete", :default => "Delete")}", ad_path(ad), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+                    - if (can? :approve_ad, Ad) && ad.new?
+                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Approve")}", ads_approving_path(ad)}
+                    - if (can? :ban_ad, Ad) && ad.new?
+                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Ban")}", ads_rejecting_path(ad)}
+          = submit_tag "Approve ads"
+        .actions-bar.wat-cf
+          .actions
+          = will_paginate @ads
 - provide(:url, admin_ads_url)
 - content_for :sidebar, render(:partial => 'ads/search')
 - content_for :sidebar, render(:partial => 'ads/sidebar')

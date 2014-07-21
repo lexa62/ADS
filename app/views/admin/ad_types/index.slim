@@ -16,7 +16,7 @@
           th
             = t("activerecord.attributes.type.name", :default => t("activerecord.labels.name", :default => "Created at"))
           th.last &nbsp;
-        - @types.each do |type|
+        - @ad_types.each do |type|
           tr class=cycle("odd", "even")
             td
               = type.id

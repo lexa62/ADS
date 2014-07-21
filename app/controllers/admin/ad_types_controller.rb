@@ -3,7 +3,7 @@ module Admin
     load_and_authorize_resource
 
     def index
-      @types = AdType.paginate(:page => params[:page], :per_page => 10)
+      @ad_types = @ad_types.paginate(:page => params[:page], :per_page => 10)
     end
 
     def new

@@ -1,12 +1,11 @@
 class AdsController < ApplicationController
-  load_and_authorize_resource :except => [:index]
-  skip_authorize_resource :only => :show
+  load_and_authorize_resource
 
   def index
     if params[:type_id].blank?
-      @q = Ad.published.search(params[:q])
+      @q = @ads.includes(:ad_type).published.search(params[:q])
     else
-      @q = Ad.type(params[:type_id]).search(params[:q])
+      @q = @ads.includes(:ad_type).type(params[:type_id]).search(params[:q])
     end
     @ads = @q.result(distinct: true).paginate(:page => params[:page], :per_page => 10)
   end
@@ -82,20 +81,20 @@ class AdsController < ApplicationController
   end
 
   def approve_ad
-    @ad = Ad.find(params[:id])
     if current_user.admin? && @ad.new?
+      session[:return_to] ||= request.referer
       @ad.approve_ad
-      redirect_to admin_ads_path, notice: 'ad was successfully approved.'
+      redirect_to session.delete(:return_to), notice: 'ad was successfully approved.'
     else
       redirect_to admin_ads_path, :flash => {:error => 'ad can not approved.'}
     end
   end
 
   def ban_ad
-    @ad = Ad.find(params[:id])
     if current_user.admin? && @ad.new?
+      session[:return_to] ||= request.referer
       @ad.reject_ad
-      redirect_to admin_ads_path, notice: 'ad was successfully baned.'
+      redirect_to session.delete(:return_to), notice: 'ad was successfully baned.'
     else
       redirect_to admin_ads_path, :flash => {:error => 'ad can not baned.'}
     end
@@ -103,6 +102,7 @@ class AdsController < ApplicationController
 
   def approve_ads
     @ads = Ad.find(params[:ad_ids])
+    session[:return_to] ||= request.referer
     @ads.each do |ad|
       if ad.new?
         ad.approve_ad
@@ -110,7 +110,7 @@ class AdsController < ApplicationController
         redirect_to admin_ads_path, :flash => {:error => 'ad should be with status new!'} and return
       end
     end
-    redirect_to admin_ads_path, notice: 'ads was successfully approved.'
+    redirect_to session.delete(:return_to), notice: 'ads was successfully approved.'
   end
 
   private

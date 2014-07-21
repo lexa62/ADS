@@ -5,7 +5,9 @@ module Admin
     private
 
     def verify_admin
-      redirect_to root_url unless current_user.admin?
+      if current_user.nil? or !current_user.admin?
+        raise CanCan::AccessDenied
+      end
     end
   end
 end

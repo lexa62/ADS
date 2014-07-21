@@ -3,9 +3,7 @@ class Ad < ActiveRecord::Base
   validates :price, numericality: { only_integer: true, less_than: 1_000_000 }
   belongs_to :ad_type, inverse_of: :ads
   counter_culture :ad_type, :column_name => Proc.new {|model| model.published? ? 'published_ads_count' : nil },
-      :column_names => {
-          ["ads.status = ?", 'published'] => 'published_ads_count'
-      }
+      :column_names => {["ads.status = ?", 'published'] => 'published_ads_count'}
   belongs_to :user
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, :allow_destroy => true
