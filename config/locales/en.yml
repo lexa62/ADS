@@ -20,4 +20,21 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  controllers:
+    flash:
+      ads:
+        success_create: 'ad was successfully created.'
+        success_update: 'ad was successfully updated.'
+        success_destroy: 'ad was successfully destroyed.'
+        success_status_update: "ad\'s status was successfully updated."
+        failure_status_update: "ad\'s status can not be updated."
+        success_approving: 'ads was successfully approved.'
+        failure_approving: 'ad should be with status new!'
+      ad_types:
+        success_create: 'type was successfully created.'
+        success_destroy: 'type was successfully destroyed.'
+        failure_destroy: 'type can not be destroyed'
+      users:
+        success_create: 'user was successfully created.'
+        success_update: 'user was successfully updated.'
+        success_destroy: 'user was successfully destroyed.'

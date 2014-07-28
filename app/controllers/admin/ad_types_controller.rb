@@ -12,8 +12,8 @@ module Admin
     def create
       respond_to do |format|
         if @ad_type.save
-          format.html { redirect_to admin_ad_types_url, notice: 'type was successfully created.' }
-          format.json { render 'admin#ad_types', status: :created, location: admin_ad_types_url }
+          format.html { redirect_to admin_ad_types_url, notice: t('controllers.flash.ad_types.success_create') }
+          format.json { render :index, status: :created, location: admin_ad_types_url }
         else
           format.html { render :new }
           format.json { render json: @ad_type.errors, status: :unprocessable_entity }
@@ -23,9 +23,9 @@ module Admin
 
     def destroy
       if @ad_type.destroy
-        message = 'type was successfully destroyed.'
+        message = t('controllers.flash.ad_types.success_destroy')
       else
-        message = 'type can not be destroyed'
+        message = t('controllers.flash.ad_types.failure_destroy')
       end
 
       respond_to do |format|

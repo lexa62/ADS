@@ -16,7 +16,7 @@ module Admin
     def create
       respond_to do |format|
         if @user.save
-          format.html { redirect_to admin_user_path(@user), notice: 'user was successfully created.' }
+          format.html { redirect_to admin_user_path(@user), notice: t('controllers.flash.users.success_create') }
           format.json { render :show, status: :created, location: @user }
         else
           format.html { render :new }
@@ -32,7 +32,7 @@ module Admin
       end
       respond_to do |format|
         if @user.update(user_params)
-          format.html { redirect_to admin_user_path(@user), notice: 'user was successfully updated.' }
+          format.html { redirect_to admin_user_path(@user), notice: t('controllers.flash.users.success_update') }
           format.json { render :show, status: :ok, location: @user }
         else
           format.html { render :edit }
@@ -44,7 +44,7 @@ module Admin
     def destroy
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to admin_users_url, notice: 'user was successfully destroyed.' }
+        format.html { redirect_to admin_users_url, notice: t('controllers.flash.users.success_destroy') }
         format.json { head :no_content }
       end
     end

@@ -24,7 +24,7 @@ class AdsController < ApplicationController
     @ad.user_id = current_user.id
     respond_to do |format|
       if @ad.save
-        format.html { redirect_to @ad, notice: 'ad was successfully created.' }
+        format.html { redirect_to @ad, notice: t('controllers.flash.ads.success_create') }
         format.json { render :show, status: :created, location: @ad }
       else
         format.html { render :new }
@@ -36,7 +36,7 @@ class AdsController < ApplicationController
   def update
     respond_to do |format|
       if @ad.update(ad_params)
-        format.html { redirect_to @ad, notice: 'ad was successfully updated.' }
+        format.html { redirect_to @ad, notice: t('controllers.flash.ads.success_update') }
         format.json { render :show, status: :ok, location: @ad }
       else
         format.html { render :edit }
@@ -48,7 +48,7 @@ class AdsController < ApplicationController
   def destroy
     @ad.destroy
     respond_to do |format|
-      format.html { redirect_to ads_url, notice: 'ad was successfully destroyed.' }
+      format.html { redirect_to ads_url, notice: t('controllers.flash.ads.success_destroy') }
       format.json { head :no_content }
     end
   end
@@ -57,9 +57,9 @@ class AdsController < ApplicationController
     define_method(meth) do
       if @ad.send('can_' + meth + '?')
         @ad.send(meth)
-        redirect_to :my_ads, notice: 'ad\'s status was successfully updated.'
+        redirect_to :my_ads, notice: t('controllers.flash.ads.success_status_update')
       else
-        redirect_to :my_ads, :flash => { :error => 'ad\'s status can not be updated.' }
+        redirect_to :my_ads, :flash => { :error => t('controllers.flash.ads.failure_status_update') }
       end
     end
   end
@@ -69,9 +69,9 @@ class AdsController < ApplicationController
       if @ad.send('can_' + meth + '?')
         session[:return_to] ||= request.referer
         @ad.send(meth)
-        redirect_to session.delete(:return_to), notice: 'ad\'s status was successfully updated.'
+        redirect_to session.delete(:return_to), notice: t('controllers.flash.ads.success_status_update')
       else
-        redirect_to admin_ads_path, :flash => { :error => 'ad\'s status can not be updated.' }
+        redirect_to admin_ads_path, :flash => { :error => t('controllers.flash.ads.failure_status_update') }
       end
     end
   end
@@ -83,10 +83,10 @@ class AdsController < ApplicationController
       if ad.can_approve_ad?
         ad.approve_ad
       else
-        redirect_to admin_ads_path, :flash => { :error => 'ad should be with status new!' } and return
+        redirect_to admin_ads_path, :flash => { :error => t('controllers.flash.ads.failure_approving') } and return
       end
     end
-    redirect_to session.delete(:return_to), notice: 'ads was successfully approved.'
+    redirect_to session.delete(:return_to), notice: t('controllers.flash.ads.success_approving')
   end
 
   private
