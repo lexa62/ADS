@@ -34,11 +34,11 @@
                 - if can? :destroy, ad
                   |  | #{link_to "#{t("web-app-theme.delete", :default => "Delete")}", ad_path(ad), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
                 - if ad.draft?
-                  |  | #{link_to "#{t("web-app-theme.edit", :default => "Moderating")}", ads_moderating_path(ad)}
+                  |  | #{link_to "#{t("web-app-theme.edit", :default => "Moderating")}", moderating_ad_path(ad)}
                 - if (can? :make_draft, ad) && ad.archive?
-                  |  | #{link_to "#{t("web-app-theme.edit", :default => "Move in drafts")}", ads_make_draft_path(ad)}
+                  |  | #{link_to "#{t("web-app-theme.edit", :default => "Move in drafts")}", make_draft_ad_path(ad)}
                 - if (can? :edit_rejected_ad, ad) && ad.rejected?
-                  |  | #{link_to "#{t("web-app-theme.edit", :default => "Move in drafts")}", ads_edit_rejected_path(ad)}
+                  |  | #{link_to "#{t("web-app-theme.edit", :default => "Move in drafts")}", edit_rejected_ad_path(ad)}
         .actions-bar.wat-cf
           .actions
           = will_paginate @ads

@@ -53,50 +53,26 @@ class AdsController < ApplicationController
     end
   end
 
-  def moderating
-    if @ad.user_id == current_user.id && @ad.draft?
-      @ad.moderating
-      redirect_to :my_ads, notice: 'ad was successfully published.'
-    else
-      redirect_to :my_ads, :flash => {:error => 'ad can not published.'}
+  %w(moderating make_draft edit_rejected_ad).each do |meth|
+    define_method(meth) do
+      if @ad.send('can_' + meth + '?')
+        @ad.send(meth)
+        redirect_to :my_ads, notice: 'ad\'s status was successfully updated.'
+      else
+        redirect_to :my_ads, :flash => { :error => 'ad\'s status can not be updated.' }
+      end
     end
   end
 
-  def make_draft
-    if @ad.user_id == current_user.id && @ad.archive?
-      @ad.make_draft
-      redirect_to :my_ads, notice: 'ad was successfully move in drafts.'
-    else
-      redirect_to :my_ads, :flash => {:error => 'ad can not moved in drafts.'}
-    end
-  end
-
-  def edit_rejected_ad
-    if @ad.user_id == current_user.id && @ad.rejected?
-      @ad.edit_rejected_ad
-      redirect_to :my_ads, notice: 'ad was successfully moved in drafts.'
-    else
-      redirect_to :my_ads, :flash => {:error => 'ad can not moved in drafts.'}
-    end
-  end
-
-  def approve_ad
-    if current_user.admin? && @ad.new?
-      session[:return_to] ||= request.referer
-      @ad.approve_ad
-      redirect_to session.delete(:return_to), notice: 'ad was successfully approved.'
-    else
-      redirect_to admin_ads_path, :flash => {:error => 'ad can not approved.'}
-    end
-  end
-
-  def ban_ad
-    if current_user.admin? && @ad.new?
-      session[:return_to] ||= request.referer
-      @ad.reject_ad
-      redirect_to session.delete(:return_to), notice: 'ad was successfully baned.'
-    else
-      redirect_to admin_ads_path, :flash => {:error => 'ad can not baned.'}
+  %w(approve_ad reject_ad).each do |meth|
+    define_method(meth) do
+      if @ad.send('can_' + meth + '?')
+        session[:return_to] ||= request.referer
+        @ad.send(meth)
+        redirect_to session.delete(:return_to), notice: 'ad\'s status was successfully updated.'
+      else
+        redirect_to admin_ads_path, :flash => { :error => 'ad\'s status can not be updated.' }
+      end
     end
   end
 
@@ -104,10 +80,10 @@ class AdsController < ApplicationController
     @ads = Ad.find(params[:ad_ids])
     session[:return_to] ||= request.referer
     @ads.each do |ad|
-      if ad.new?
+      if ad.can_approve_ad?
         ad.approve_ad
       else
-        redirect_to admin_ads_path, :flash => {:error => 'ad should be with status new!'} and return
+        redirect_to admin_ads_path, :flash => { :error => 'ad should be with status new!' } and return
       end
     end
     redirect_to session.delete(:return_to), notice: 'ads was successfully approved.'

@@ -21,7 +21,7 @@ class Ability
   end
 
   def admin
-    alias_action :approve_ad, :ban_ad, :approve_ads, :to => :moderate
+    alias_action :approve_ad, :reject_ad, :approve_ads, :to => :moderate
 
     guest
     can :manage, [AdType, User]

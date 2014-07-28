@@ -10,7 +10,7 @@
         => t("web-app-theme.all", :default => "Moderated")
         | Ads
       .inner
-        = form_tag approve_multiple_ads_path, method: :post do
+        = form_tag approving_ads_path, method: :post do
           table.table
             tr
               th.first &nbsp;
@@ -37,9 +37,9 @@
                     - if can? :destroy, ad
                       |  | #{link_to "#{t("web-app-theme.delete", :default => "Delete")}", ad_path(ad), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
                     - if (can? :approve_ad, Ad) && ad.new?
-                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Approve")}", ads_approving_path(ad)}
-                    - if (can? :ban_ad, Ad) && ad.new?
-                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Ban")}", ads_rejecting_path(ad)}
+                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Approve")}", approve_ad_path(ad)}
+                    - if (can? :reject_ad, Ad) && ad.new?
+                      |  | #{link_to "#{t("web-app-theme.edit", :default => "Ban")}", reject_ad_path(ad)}
           = submit_tag "Approve ads"
         .actions-bar.wat-cf
           .actions
