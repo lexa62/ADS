@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'spec_helper'
 
 describe User do
   describe "fields" do
@@ -15,16 +14,19 @@ describe User do
 
       it "is invalid when missing the point" do
         user.email = 'user@foo,com'
+
         expect(user).not_to be_valid
       end
 
       it "is invalid when missing @" do
         user.email = 'user_at_foo.org'
+
         expect(user).not_to be_valid
       end
 
       it "is invalid when missing domain" do
         user.email = 'example.user@foo.'
+
         expect(user).not_to be_valid
       end
     end
@@ -35,6 +37,7 @@ describe User do
       it "is invalid when password is not present" do
         user.password = ' '
         user.password_confirmation = ' '
+
         expect(user).not_to be_valid
       end
     end

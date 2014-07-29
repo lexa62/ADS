@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'spec_helper'
 
 describe AdType do
   describe "fields" do
@@ -11,6 +10,7 @@ describe AdType do
 
     it "is invalid when name is too long" do
       ad_type.name = "a" * 51
+
       expect(ad_type).to_not be_valid
     end
   end

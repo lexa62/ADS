@@ -15,6 +15,7 @@ describe "Ads" do
       describe "by visiting /ads/new" do
         it "response status Ok" do
           get new_ad_path
+
           expect(response.status).to be(200)
         end
       end
@@ -22,6 +23,7 @@ describe "Ads" do
       describe "by visiting /my_ads" do
         it "response status Ok" do
           get my_ads_path
+
           expect(response.status).to be(200)
         end
       end
@@ -29,6 +31,7 @@ describe "Ads" do
       describe "by visiting /admin/ads" do
         it "response status not Ok" do
           get admin_ads_path
+
           expect(response.status).not_to be(200)
         end
       end
