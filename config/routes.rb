@@ -6,10 +6,10 @@ Rails.application.routes.draw do
     post 'approving' => 'ads#approve_ads', on: :collection
 
     member do
-      get 'moderating'
-      get 'make_draft'
-      get 'edit_rejected' => 'ads#edit_rejected_ad'
       get 'approve' => 'ads#approve_ad'
+      get 'edit_rejected' => 'ads#edit_rejected_ad'
+      get 'make_draft'
+      get 'moderating'
       get 'reject' => 'ads#reject_ad'
     end
   end
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :ads, :only => [:index, :show]
-    resources :users
     resources :ad_types, :only => [:index, :new, :create, :destroy]
+    resources :users
   end
 end
